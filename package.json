@@ -2,6 +2,12 @@
   "name": "react-queryable-container",
   "version": "0.0.1",
   "description": "Know what your parents are up to",
+  "keywords": [
+    "react",
+    "responsive",
+    "container query",
+    "media query"
+  ],
   "main": "lib/index.js",
   "author": "Mark D'Arensbourg",
   "license": "SEE LICENSE IN LICENSE",
