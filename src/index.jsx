@@ -12,10 +12,10 @@ export default class QueryableContainer extends Component {
 	}
 
 	queryContainer() {
-		const { onContainerQueried } = this.props;
+		const { callback } = this.props;
 		const { container } = this.refs;
 
-		this.setState(onContainerQueried(container));
+		this.setState(callback(container));
 	}
 
 	componentDidMount() {
@@ -49,7 +49,7 @@ export default class QueryableContainer extends Component {
 
 QueryableContainer.defaultProps = {
 	throttle: 150,
-	onContainerQueried: (el) => {
+	callback: (el) => {
 		return { clientWidth: el.clientWidth };
 	},
 	poll: false

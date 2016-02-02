@@ -74,7 +74,7 @@ const Root = () => (
 		<div className="animateWidth well">
 			<Q poll><ExampleOne /></Q>
 		</div>
-			<Q className="animateBorderColor well" poll onContainerQueried={getOtherStuff}>
+			<Q className="animateBorderColor well" poll callback={getOtherStuff}>
 				<ExampleTwo />
 			</Q>
 	</div>
