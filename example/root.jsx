@@ -46,6 +46,23 @@ const didWrap = (el) => {
 	return {
 		isWrapped: anyMultiRects
 	};
+};
+
+const didOverflow = (el) => {
+	const flatChildren = el.querySelectorAll("*");
+	const anyBiggies = _some(flatChildren, (c) => c.clientWidth > el.clientWidth);
+	return {
+		isOverflow: anyBiggies
+	};
+}
+
+const ExampleFour = ({ isOverflow }) => {
+	return (
+		<div>
+			<p>Did overflow?</p>
+			<h1>{isOverflow ? "Yes" : "No"}</h1>
+		</div>
+	);
 }
 
 const Root = () => (
@@ -54,6 +71,12 @@ const Root = () => (
 			.animateWidth {
 				animation: animateWidth 1.8s infinite alternate;
 			}
+
+			.animateWidthTooMuch p {
+				animation: animateWidthTooMuch 1.8s infinite alternate;
+				border: 3px solid;
+			}
+
 			.animateBorderColor {
 				animation: animateBorderColor 1.8s infinite;
 			}
@@ -64,6 +87,15 @@ const Root = () => (
 				}
 				100% {
 					width: 100%;
+				}
+			}
+
+			@keyframes animateWidthTooMuch {
+				0% {
+					width: 75%;
+				}
+				100% {
+					width: 120%;
 				}
 			}
 
@@ -94,6 +126,9 @@ const Root = () => (
 			</Q>
 			<Q className="animateWidth well" poll callback={didWrap}>
 				<ExampleThree />
+			</Q>
+			<Q className="animateWidthTooMuch well" poll callback={didOverflow}>
+				<ExampleFour />
 			</Q>
 	</div>
 );
