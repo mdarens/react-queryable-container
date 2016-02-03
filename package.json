@@ -38,6 +38,8 @@
     "browserify": "^12.0.1",
     "http-server": "^0.8.0",
     "jshint": "^2.8.0",
+      "lodash.some": "^4.0.2",
+    "lodash.uniq": "^4.0.2",
     "minifyify": "^7.0.3",
     "watchify": "^3.2.3"
   },

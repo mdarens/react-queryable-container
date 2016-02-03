@@ -1,5 +1,6 @@
 import React, { Component, PropTypes as t } from "react";
 import Q from "../src/index";
+import _some from "lodash.some";
 
 const ExampleOne = ({
 	clientWidth
@@ -26,10 +27,24 @@ const ExampleTwo = ({
 	<h1><code>borderColor</code> is <span><ColorChip color={borderColor} /> {borderColor}</span></h1>
 );
 
+const ExampleThree = ({ isWrapped }) => {
+	return (
+		<h1>Did I Wrap? Did I Wrap? Did I Wrap? Did I Wrap? {isWrapped ? "Yes!" : "No!"}</h1>
+	);
+};
+
 const getOtherStuff = (el) => {
 	const computed = getComputedStyle(el);
 	return {
 		borderColor: computed.borderColor
+	};
+}
+
+const didWrap = (el) => {
+	const flatChildren = el.querySelectorAll("*");
+	const anyMultiRects = _some(flatChildren, (c) => c.getClientRects().length > 1);
+	return {
+		isWrapped: anyMultiRects
 	};
 }
 
@@ -76,6 +91,9 @@ const Root = () => (
 		</div>
 			<Q className="animateBorderColor well" poll callback={getOtherStuff}>
 				<ExampleTwo />
+			</Q>
+			<Q className="animateWidth well" poll callback={didWrap}>
+				<ExampleThree />
 			</Q>
 	</div>
 );
