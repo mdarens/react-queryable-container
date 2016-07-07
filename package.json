@@ -1,6 +1,6 @@
 {
   "name": "react-queryable-container",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Know what your parents are up to",
   "keywords": [
     "react",
@@ -16,7 +16,8 @@
     "watch": "watchify example/index.jsx --extension=.jsx -t babelify -d -s app -o example/build.js",
     "compile": "babel src -d lib",
     "serve": "http-server example -p 1340 -o -c-1",
-    "start": "npm run build && npm run serve"
+    "start": "npm run build && npm run serve",
+    "lint": "eslint . --format=unix"
   },
   "repository": {
     "type": "git",
@@ -30,15 +31,19 @@
   "devDependencies": {
     "babel-cli": "^6.3.15",
     "babel-core": "^6.3.15",
+    "babel-eslint": "^6.1.0",
     "babel-polyfill": "^6.3.14",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-2": "^6.3.13",
     "babelify": "^7.2.0",
     "browserify": "^12.0.1",
+    "eslint": "^3.0.1",
+    "eslint-plugin-filenames": "^1.0.0",
+    "eslint-plugin-react": "^5.2.2",
     "http-server": "^0.8.0",
     "jshint": "^2.8.0",
-      "lodash.some": "^4.0.2",
+    "lodash.some": "^4.0.2",
     "lodash.uniq": "^4.0.2",
     "minifyify": "^7.0.3",
     "watchify": "^3.2.3"

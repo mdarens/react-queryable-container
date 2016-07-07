@@ -6,26 +6,23 @@ export default class QueryableContainer extends Component {
 		super(props);
 
 		this.state = {};
+		this._container = null;
 
 		this.queryContainer = this.queryContainer.bind(this);
-		this.queryContainerThrottled = _throttle(this.queryContainer, props.throttle, { 'leading': false });
+		this.queryContainerThrottled = _throttle(this.queryContainer, props.throttle, { "leading": false });
 	}
 
-	queryContainer() {
-		const { callback } = this.props;
-		const { container } = this.refs;
-
-		this.setState(callback(container));
-	}
-
-	componentDidMount() {
-		setTimeout(this.queryContainer, 0);
+	componentWillMount() {
 		window.addEventListener("resize", this.queryContainerThrottled);
 		if (this.props.poll) {
 			this.setState({
 				timer: setInterval(this.queryContainerThrottled, this.props.throttle)
 			});
 		}
+	}
+
+	componentDidMount() {
+		setTimeout(this.queryContainer, 0);
 	}
 
 	componentWillUnmount() {
@@ -35,14 +32,20 @@ export default class QueryableContainer extends Component {
 		}
 	}
 
+	queryContainer() {
+		const { callback } = this.props;
+
+		this.setState(callback(this._container));
+	}
+
 	render() {
 
 		return (
-				<div {...this.props} ref="container">
-					{
-						React.Children.map(this.props.children, (child) => React.cloneElement(child, {...this.state}))
-					}
-				</div>
+			<div {...this.props} ref={(ref) => this._container = ref}>
+				{
+					React.Children.map(this.props.children, (child) => React.cloneElement(child, this.state))
+				}
+			</div>
 		);
 	}
 }
@@ -50,7 +53,13 @@ export default class QueryableContainer extends Component {
 QueryableContainer.defaultProps = {
 	throttle: 150,
 	callback: (el) => {
-		return { clientWidth: el.clientWidth };
+		return { clientWidth: el ? el.clientWidth : null };
 	},
 	poll: false
+};
+
+QueryableContainer.propTypes = {
+	throttle: t.number,
+	callback: t.func,
+	poll: t.bool
 };
