@@ -33,9 +33,11 @@ export default class QueryableContainer extends Component {
 	}
 
 	queryContainer() {
-		const { callback } = this.props;
+		const queryResult = this.props.callback(this._container);
 
-		this.setState(callback(this._container));
+		if (queryResult) {
+			this.setState(queryResult);
+		}
 	}
 
 	render() {
