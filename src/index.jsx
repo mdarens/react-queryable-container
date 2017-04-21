@@ -1,4 +1,4 @@
-import React, { Component, PropTypes as t } from "react";
+import React, { Component } from "react";
 import _throttle from "lodash.throttle";
 
 export default class QueryableContainer extends Component {
@@ -58,10 +58,4 @@ QueryableContainer.defaultProps = {
 		return { clientWidth: el ? el.clientWidth : null };
 	},
 	poll: false
-};
-
-QueryableContainer.propTypes = {
-	throttle: t.number,
-	callback: t.func,
-	poll: t.bool
 };
