@@ -22,7 +22,7 @@ export default class QueryableContainer extends Component {
 	}
 
 	componentDidMount() {
-		setTimeout(this.queryContainer, 0);
+		this.queryContainer();
 	}
 
 	componentWillUnmount() {
@@ -41,7 +41,6 @@ export default class QueryableContainer extends Component {
 	}
 
 	render() {
-
 		return (
 			<div {...this.props} ref={(ref) => this._container = ref}>
 				{
