@@ -22,7 +22,11 @@ export default class QueryableContainer extends Component {
 	}
 
 	componentDidMount() {
-		this.queryContainer();
+		if (this._mounted) {
+			this.queryContainer();
+		} else {
+			setTimeout(this.queryContainer, 0);
+		}
 	}
 
 	componentWillUnmount() {
