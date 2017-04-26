@@ -22,10 +22,13 @@ export default class QueryableContainer extends Component {
 	}
 
 	componentDidMount() {
+		this._mounted = true;
 		this.queryContainer();
+		setTimeout(this.queryContainer, 0);
 	}
 
 	componentWillUnmount() {
+		this._mounted = false;
 		window.removeEventListener("resize", this.queryContainerThrottled);
 		if (this.state.timer) {
 			clearInterval(this.state.timer);
@@ -33,16 +36,21 @@ export default class QueryableContainer extends Component {
 	}
 
 	queryContainer() {
-		const queryResult = this.props.callback(this._container);
+		if (this._mounted) {
+			const queryResult = this.props.callback(this._container);
 
-		if (queryResult) {
-			this.setState(queryResult);
+			if (queryResult) {
+				this.setState(queryResult);
+			}
 		}
 	}
 
 	render() {
+		/* eslint-disable no-unused-vars */
+		const { throttle, callback, poll, ...props } = this.props;
+		/* eslint-enable no-unused-vars */
 		return (
-			<div {...this.props} ref={(ref) => this._container = ref}>
+			<div {...props} ref={(ref) => this._container = ref}>
 				{
 					React.Children.map(this.props.children, (child) => React.cloneElement(child, this.state))
 				}
