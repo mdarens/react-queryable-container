@@ -22,14 +22,13 @@ export default class QueryableContainer extends Component {
 	}
 
 	componentDidMount() {
-		if (this._mounted) {
-			this.queryContainer();
-		} else {
-			setTimeout(this.queryContainer, 0);
-		}
+		this._mounted = true;
+		this.queryContainer();
+		setTimeout(this.queryContainer, 0);
 	}
 
 	componentWillUnmount() {
+		this._mounted = false;
 		window.removeEventListener("resize", this.queryContainerThrottled);
 		if (this.state.timer) {
 			clearInterval(this.state.timer);
@@ -37,10 +36,12 @@ export default class QueryableContainer extends Component {
 	}
 
 	queryContainer() {
-		const queryResult = this.props.callback(this._container);
+		if (this._mounted) {
+			const queryResult = this.props.callback(this._container);
 
-		if (queryResult) {
-			this.setState(queryResult);
+			if (queryResult) {
+				this.setState(queryResult);
+			}
 		}
 	}
 
