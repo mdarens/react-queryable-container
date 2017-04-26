@@ -41,8 +41,9 @@ export default class QueryableContainer extends Component {
 	}
 
 	render() {
+		const { throttle, callback, poll, ...props } = this.props;
 		return (
-			<div {...this.props} ref={(ref) => this._container = ref}>
+			<div {...props} ref={(ref) => this._container = ref}>
 				{
 					React.Children.map(this.props.children, (child) => React.cloneElement(child, this.state))
 				}
