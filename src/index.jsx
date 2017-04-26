@@ -45,7 +45,9 @@ export default class QueryableContainer extends Component {
 	}
 
 	render() {
+		/* eslint-disable no-unused-vars */
 		const { throttle, callback, poll, ...props } = this.props;
+		/* eslint-enable no-unused-vars */
 		return (
 			<div {...props} ref={(ref) => this._container = ref}>
 				{
