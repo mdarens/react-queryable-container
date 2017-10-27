@@ -13,7 +13,9 @@ export default class QueryableContainer extends Component {
 	}
 
 	componentWillMount() {
-		window.addEventListener("resize", this.queryContainerThrottled);
+		if (global.window) {
+			global.window.addEventListener("resize", this.queryContainerThrottled);
+		}
 		if (this.props.poll) {
 			this.setState({
 				timer: setInterval(this.queryContainerThrottled, this.props.throttle)
@@ -29,7 +31,9 @@ export default class QueryableContainer extends Component {
 
 	componentWillUnmount() {
 		this._mounted = false;
-		window.removeEventListener("resize", this.queryContainerThrottled);
+		if (global.window) {
+			global.window.removeEventListener("resize", this.queryContainerThrottled);
+		}
 		if (this.state.timer) {
 			clearInterval(this.state.timer);
 		}
