@@ -17,7 +17,8 @@
     "compile": "babel src -d lib",
     "serve": "http-server example -p 1340 -o -c-1",
     "start": "npm run build && npm run serve",
-    "lint": "eslint src --format=unix"
+    "lint": "eslint src --format=unix",
+    "prepublish": "npm run compile"
   },
   "repository": {
     "type": "git",
