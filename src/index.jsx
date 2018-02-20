@@ -12,28 +12,26 @@ export default class QueryableContainer extends Component {
 		this.queryContainerThrottled = _throttle(this.queryContainer, props.throttle, { "leading": false });
 	}
 
-	componentWillMount() {
-		if (global.window) {
-			global.window.addEventListener("resize", this.queryContainerThrottled);
-		}
+	componentDidMount() {
+		this._mounted = true;
+
+		window.addEventListener("resize", this.queryContainerThrottled);
+
 		if (this.props.poll) {
 			this.setState({
 				timer: setInterval(this.queryContainerThrottled, this.props.throttle)
 			});
 		}
-	}
 
-	componentDidMount() {
-		this._mounted = true;
 		this.queryContainer();
 		setTimeout(this.queryContainer, 0);
 	}
 
 	componentWillUnmount() {
 		this._mounted = false;
-		if (global.window) {
-			global.window.removeEventListener("resize", this.queryContainerThrottled);
-		}
+
+		window.removeEventListener("resize", this.queryContainerThrottled);
+
 		if (this.state.timer) {
 			clearInterval(this.state.timer);
 		}
